@@ -1,0 +1,84 @@
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-left .field{
+  margin-bottom: 60px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-left .field.penultimate{
+  margin-bottom: 40px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-left .field.last{
+  margin-bottom: 0;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-right .field{
+  margin-bottom: 25px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-right .field.field-name-field-position-hours{
+  margin-bottom: 0;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-right .field.field-name-field-compensation{
+  margin-bottom: 20px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-label-above .field-label{
+  font-family: 'PFDinTextCondStd-Medium';
+  line-height: 140%;
+  font-weight: normal;
+  font-size: 18px;
+  color: #666666;
+  text-decoration: none;
+  text-transform: none;
+  background-color: transparent;
+  text-align: left;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-label-inline .field-label{
+  font-family: 'MuseoSans', Arial, Sans;
+  font-size: 13px;
+  line-height: 140%;
+  font-weight: 700;
+  color: #5D5959;
+  text-transform: none;
+  text-align: left;
+  background-color: transparent;
+  text-decoration: none;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-left .field-label-above > .field-items{
+  padding-top: 13px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .group-right .field .field-items{
+  background-color: transparent;
+  padding: 0;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field > .field-items > .field-item{
+  font-family: 'MuseoSans', Arial, Sans;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 120%;
+  color: #5D5959;
+}
+.node-type-career-opportunity article.view-mode-full .field.field-name-field-job-pdf span.ext{
+  color: #A5A5A5;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.node-type-career-opportunity article.view-mode-full .field.field-name-field-job-pdf img{
+  display: none;
+}
+
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field.field-name-field-major-duties-and-responsib .field-item,
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-name-field-requirements .field-item{
+  background: url('../images/backgrounds/bullet.png') no-repeat 1px 3px;
+  padding-left: 17px;
+  margin-bottom: 15px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-name-field-requirements .field-item{
+  margin-bottom: 8px;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-name-field-requirements label.label-after{
+  padding-top: 12px;
+  font-family: 'MuseoSans', Arial, Sans;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 120%;
+  color: #5D5959;
+}
+.node-type-career-opportunity article.node.ds-2col.view-mode-full .field-name-field-requirements label.label-after span.desired{
+  margin-left: 24px;
+}

@@ -1,0 +1,25 @@
+.field-name-field-header > .field-items > .field-item{
+  margin-bottom: 40px;
+}
+#webform-component-file-1 > label{
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+#messages .messages.error{
+  font-family: "MuseoSans", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #FF0000;
+  background: none;
+  border: none;
+  line-height: normal;
+  padding: 0;
+  margin-bottom: 20px;
+}
+#messages .messages.error ul{
+  margin: 0;
+  list-style: none;
+}
+#messages .messages.error ul li{
+  list-style: none;
+}

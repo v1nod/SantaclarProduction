@@ -1,0 +1,174 @@
+<?php
+/**
+ * @file
+ * Code for the bigtexasaustin feature.
+ */
+
+include_once 'bigtexasaustin.features.inc';
+
+/**
+ * Implementation of hook_menu().
+ */
+function bigtexasaustin_menu() {
+  $items = array();
+  $items['admin/config/media/bigtexasaustin'] = array(
+    'title'             => 'Big Texas Austin Slide Show Settings',
+    'description'       => 'Configure your Big Texas Austin Slide Show.',
+    'page callback'     => 'drupal_get_form',
+    'page arguments'    => array('bigtexasaustin_settings'),
+    'access callback'   => 'user_access',
+    'access arguments'  => array('administer site configuration'),
+    'type'              => MENU_NORMAL_ITEM,
+    'file'              => 'includes/bigtexasaustin.admin.inc',
+  );
+  return $items;
+}
+
+/**
+* Implements hook_theme().
+*/
+function bigtexasaustin_theme() {
+  return array(
+    'views_view_fields__bigtexasaustin' => array(
+      'variables' => array('view' => NULL, 'options' => NULL, 'row' => NULL),
+      'template' => 'views-view-fields--bigtexasaustin',
+      'base hook' => 'views_view_fields',
+    ),
+    'bigtexasaustin_pager' => array(
+      'variables' => array('items' => NULL,),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view_alter()
+ */
+function bigtexasaustin_block_view_alter(&$data, $block) {
+  // We call this only when the slideshow-block is called
+  // so we arent loading these scripts on every page load.
+  if ($block->module == 'views' && $block->delta == 'bigtexasaustin-block') {
+    $theme = variable_get('bigtexasaustin_theme', drupal_get_path('module', 'bigtexasaustin') . '/theme/austin');
+    if (_bigtexasaustin_files_exist($theme)) {
+      drupal_add_css($theme . '/css/bigtexasaustin.css');    
+      drupal_add_js(libraries_get_path('jquery.cycle') . '/jquery.cycle.all.js');
+      drupal_add_js(libraries_get_path('jquery.easing') . '/jquery.easing.1.3.js');
+      drupal_add_js($theme . '/js/bigtexasaustin.js');
+    }
+  }
+}
+
+function bigtexasaustin_views_pre_render(&$view) {
+  /*
+    style_name: The name of the style to be used to alter the original image.
+    path: The path of the image file relative to the Drupal files directory.
+    This function does not work with images outside the files directory nor with remotely hosted images.
+    alt: The alternative text for text-based browsers.
+    title: The title text is displayed when the image is hovered in some popular browsers.
+    attributes: Associative array of attributes to be placed in the img tag.
+
+  */
+  if ($view->name == 'bigtexasaustin') {
+    // Get the pager type
+    $pager_type = variable_get('bigtexasaustin_pager', 'picture_pager');
+    switch ($pager_type) {
+      case 'picture_pager':
+        $variables = array();
+        foreach ($view->result as $res) {
+          $variables = array(
+          'style_name' => 'bigtexasaustin',
+          'alt' => $res->field_field_big_texas_austin_image[0]['raw']['alt'],
+          'title' => $res->field_field_big_texas_austin_image[0]['raw']['title'],
+          'attributes' => array('class' => 'pager',),
+          );
+          $items[] = theme('image_style', $variables);
+          
+        }
+        $pager = theme('bigtexasaustin_pager', array('items' => $items,));
+        break;
+      case 'circle_pager':
+        $variables = array();
+        foreach ($view->result as $res) {
+          $variables[] = '&nbsp;';
+        }
+        $pager = theme('bigtexasaustin_pager', array('items' => $variables,));
+      break;
+      default:
+        // no pager at all!
+        $pager = '';
+    }
+    // adds prev/next buttons
+    $prev = '<div class="prevnext" id="prev">&gt;</div>';
+    $next = '<div class="prevnext" id="next">&lt;</div>';
+    $view->attachment_after = $pager . $prev . $next;
+  } 
+}
+
+/**
+ * Themes the unordered list of thumbnails that
+ * become the thumbnail pager.
+ */
+function theme_bigtexasaustin_pager($variables) {
+  $output = '<ul id="bigtexasaustin-pager">' . "\n";
+  foreach ($variables['items'] as $item) {
+    $output .= '<li class="bigtexasaustin-pager-li">' . $item . '</li>' . "\n";
+  }
+  $output .= '</ul>' . "\n";
+  return $output;
+}
+
+/**
+ * Implements hook_form_alter()
+ */
+function bigtexasaustin_form_alter(&$form, &$form_state, $form_id) {
+}
+
+/**
+ * Helper function to validate that the required files exist
+ * $theme
+ *   string. The theme directory to search for required files.
+ * return
+ *   TRUE if all files exist
+ *   FALSE if there are errors.
+ */
+function _bigtexasaustin_files_exist($theme) {
+  $flag = TRUE;
+  // check to see if the theme exists:
+  if (!file_exists($theme . '/css/bigtexasaustin.css')) {
+    drupal_set_message(t('Big Texas Slide Show Error:
+                         Your custom theme file, /css/bigtexasaustin.css was not found in the Big Texas Slideshow theme @theme_dir/css/bigtexasaustin.css.
+                         Please upload the css file to @theme_dir/css/bigtexasaustin.css or !change so that this module will work',
+                         array(
+                               '@theme_dir' => $theme,
+                               '!change' => l('configure another theme directory', 'admin/config/media/bigtexasaustin'),
+                               )         
+                         ),
+                       'error'
+                      );
+    $flag = FALSE;
+  }
+  
+  // This module depends upon jquery cycle module to be
+  // placed in the sites/all/libraries/jquery.cycle/jquery.cycle.all.js
+  // Download the module at http://jquery.malsup.com/cycle/
+  $cycle = libraries_get_path('jquery.cycle');
+  $cycle = (!empty($cycle) ? $cycle : 'sites/all/libraries/jquery.cycle');
+  // Check to make sure that the libraries are uploaded to the sites/all/libraries directory:
+  if (!file_exists($cycle . '/jquery.cycle.all.js')) {
+    drupal_set_message(t('Big Texas Slide Show Error:
+                         The jquery.cycle libraries are not loaded. Make sure that you have uploaded jquery.cycle.all.js to the @cycle directory.',
+                         array('@cycle' => $cycle)), 'error');
+    $flag = FALSE;
+  }
+  
+  // This module depends upon jquery easing module to be
+  // placed in the sites/all/libraries/jquery.easing/jquery.easing.1.3.js
+  // Download the module at http://gsgd.co.uk/sandbox/jquery/easing/
+  $easing = libraries_get_path('jquery.easing');
+  $easing = (!empty($easing) ? $easing : 'sites/all/libraries/jquery.easing');
+  if (!file_exists($easing . '/jquery.easing.1.3.js')) {
+    drupal_set_message(t('Big Texas Slide Show Error: The jquery easing libraries are not loaded. Make sure that you have uploaded
+                         jquery.easing.1.3.js to the @easing directory.', array('@easing' => $easing)), 'error');
+    $flag = FALSE;
+  }
+  return $flag;
+}

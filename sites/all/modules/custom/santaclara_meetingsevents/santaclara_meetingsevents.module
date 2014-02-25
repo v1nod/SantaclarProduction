@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the santaclara_meetingsevents feature.
+ */
+
+include_once 'santaclara_meetingsevents.features.inc';

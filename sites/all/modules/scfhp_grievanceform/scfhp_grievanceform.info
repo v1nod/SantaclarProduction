@@ -1,0 +1,12 @@
+name = Custom Date Field In Grievance Form
+description = "Alters grievance webform by adding a custom date field."
+core = 7.x
+package = SCFHP
+dependencies[] = entity
+
+
+; Information added by drupal.org packaging script on 2013-02-17
+version = "7.x-1.0"
+core = "7.x"
+datestamp = "1361062292"
+

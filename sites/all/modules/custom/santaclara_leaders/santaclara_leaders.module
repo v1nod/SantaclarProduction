@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the santaclara_leaders feature.
+ */
+
+include_once 'santaclara_leaders.features.inc';

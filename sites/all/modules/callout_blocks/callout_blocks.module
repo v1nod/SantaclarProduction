@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Callout Blocks feature.
+ */
+
+include_once 'callout_blocks.features.inc';

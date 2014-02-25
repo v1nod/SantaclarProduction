@@ -1,0 +1,4 @@
+name = Santa Clara Health Plan - Providers
+description = Blocks, Forms and Customizations for SCHP Providers
+core = 7.x
+package = Santa Clara

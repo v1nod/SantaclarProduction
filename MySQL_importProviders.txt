@@ -1,0 +1,5 @@
+LOAD DATA INFILE "C:/Download/Providers/providerLookupDump.csv"
+ INTO TABLE santaclaratest.providers
+ FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+ LINES TERMINATED BY '\r\n'
+ IGNORE 1 LINES;

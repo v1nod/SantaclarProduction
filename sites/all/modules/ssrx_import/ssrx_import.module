@@ -1,0 +1,363 @@
+<?php
+function ssrx_import_menu() {
+  $menu['admin/config/system/providers/add'] = array(
+    'title' => t('Import Provider Database into Site'),
+    'page callback' => 'ssrx_import_providers',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer content'),
+  );
+  $menu['admin/config/system/providers/delete'] = array(
+    'title' => t('Delete all Provider Content Types From Site'),
+    'page callback' => 'ssrx_delete_providers',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer content'),
+  );
+  $menu['admin/config/system/providers'] = array(
+    'title' => t('Provider Import'),
+    'page callback' => 'ssrx_import_summary',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer content'),
+  ); 
+  return $menu;
+}
+
+function ssrx_import_summary() {
+  $provider_count = db_query('SELECT COUNT(*) FROM {node} where type=:type', array(':type' => 'provider'))->fetchField();
+  $out = '<p>There are currently ' . $provider_count . ' provider nodes in the website. You can:</p>';
+  $items = array(
+    ($provider_count > 0 ? l('Delete All Providers', 'admin/config/system/providers/delete') : ''),
+    l('Import New Provders, Ignoring Duplicates', 'admin/config/system/providers/add'),
+  );
+  $out .= theme('item_list', array('items' => $items));
+  $out .= '<p>Before importing, please use phpMyAdmin or another mySQL management tool to import the SCFCP provider database into this website\'s database table labeled <strong>providers</strong></p>';
+  return $out;
+}
+
+/**
+ * A function to batch process the importation of providers
+ */
+function ssrx_import_providers() {
+  $provider_count = db_query('SELECT COUNT(DISTINCT id) FROM {providers}')->fetchField();
+  $batch_size = 250;
+  $counter = 0;
+  $operations = array();
+  while ($counter < $provider_count) {
+    if ($counter >= $provider_count) {
+      $batch_size = $provider_count - $counter;
+    }
+    $operations[] = array(
+      '_ssrx_import_provider',
+      array(
+        $counter,
+        $batch_size,
+      ),
+    );
+    $counter += $batch_size;
+    if (isset($_REQUEST['one_batch'])) {
+      break;
+    }
+  }
+  
+  if (count($operations)) {
+    $batch = array(
+      'operations' => $operations,
+      'finished' => 'ssrx_import_batch_finished',
+      'title' => t('Processing Provider Batch'),
+      'init_message' => t('Provider Import Batch is starting.'),
+      'progress_message' => t('Processed @current out of @total.'),
+      'error_message' => t('Provider Batch has encountered an error.'),
+    );
+    batch_set($batch);
+    batch_process('admin/config/system/providers');
+  }
+  else {
+    drupal_set_message('Nothing to import');
+    drupal_goto('admin/config/system/providers');
+  }
+}
+  
+function _ssrx_import_provider($start, $batch_size, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_node'] = 0;
+    $context['sandbox']['max'] = db_query('SELECT COUNT(DISTINCT id) FROM {providers}')->fetchField();
+  }
+  $result = db_query_range("SELECT * FROM {providers} WHERE id > :start ORDER BY id ASC", $start, $batch_size, array(':start' => $start));
+  foreach ($result as $line) {
+    $name = trim($line->FName) . ' ' . trim($line->MName) . ' ' . trim($line->LName);
+    // Check for duplication:
+    //Entity Field Query
+    $query = new EntityFieldQuery();
+
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'provider')
+      ->propertyCondition('status', 1)
+      ->propertyCondition('title', '%' . $name . '%', 'LIKE')
+      ->fieldCondition('field_scfhp_internal_id', 'value', (int)$line->ID, '=');
+    
+    $result = $query->execute();
+    
+    if (!isset($result['node'])) {
+      // This isnt a a duplicate.
+
+    unset($query);
+    $node = new stdClass();
+    $node->type = 'provider';
+    node_object_prepare($node);
+    $node->language = LANGUAGE_NONE;
+  
+    $node->title = $name;
+    //// Mario V Code
+    $node->field_phone_number[$node->language][0]['value'] = _ssrx_import_format_phone($line->phone);
+    $node->field_first_name[$node->language][0]['value'] = trim($line->FName); 
+    $node->field_middle_name[$node->language][0]['value'] = trim($line->MName);
+    $node->field_last_name[$node->language][0]['value'] = trim($line->LName);
+    $node->field_title[$node->language][0]['value'] = trim($line->Title);
+    $node->field_specialty_code[$node->language][0]['value'] = trim($line->Spec);
+    $node->field_specialty_short_name[$node->language][0]['value'] = trim($line->SpecShort);
+    $node->field_specialty_description[$node->language][0]['value'] = trim($line->SpecDesc);
+    $node->field_accepting_new_patients[$node->language][0]['value'] = ($line->AcceptNewPat == 'True') ? 1 : 0 ;
+    $node->field_parking[$node->language][0]['value'] = _accesibility_field_value($line->FSR_PK);
+    $node->field_exterior_building_access[$node->language][0]['value'] = _accesibility_field_value($line->FSR_EB);
+    $node->field_interior_building_access[$node->language][0]['value'] = _accesibility_field_value($line->FSR_IB);
+    $node->field_restroom[$node->language][0]['value'] = _accesibility_field_value($line->FSR_RR);
+    $node->field_exam_room[$node->language][0]['value'] = _accesibility_field_value($line->FSR_ER);
+    $node->field_exam_table_scale[$node->language][0]['value'] = _accesibility_field_value($line->FSR_ET);
+    $node->field_scfhp_internal_id[$node->language][0]['value'] = (int)$line->ID;
+    
+    $node->field_lob[$node->language][0]['value'] = trim($line->LOB);
+    $node->field_type[$node->language][0]['value'] = trim($line->Type);
+    $node->field_hours[$node->language][0]['value'] = trim($line->Hours);
+  
+    $prov_langs = explode(',', $line->LangProv);
+    foreach ($prov_langs as $key => $value) {
+      $lang = trim($value);
+      if ($lang != '') {
+        $node->field_provider_language[$node->language][]['value'] = $lang;
+      } 
+    }
+    
+    $staff_langs = explode(',', $line->LangStaff);
+    foreach ($staff_langs as $key => $value) {
+      $lang = trim($value);
+      if ($lang != '') {
+        $node->field_staff_language[$node->language][]['value'] = $lang;
+      } 
+    }
+    $networks = explode(',', $line->Networks);
+    foreach ($networks as $key => $value) {
+      $network = trim($value);
+      if ($network != '') {
+        $node->field_networks[$node->language][]['value'] = $network;
+      } 
+    }
+    
+    $hospitals = explode(',', $line->Hospitals);
+    foreach ($hospitals as $key => $value) {
+      $hospital = trim($value);
+      if ($hospital != '') {
+        $node->field_hospitals[$node->language][]['value'] = $hospital;
+      } 
+    }
+    
+    $node->field_gender[$node->language][0]['value'] = ($line->Gender == 'M')? 'Male' : 'Female';
+    
+    
+    
+    $location = array(
+      'street' => trim($line->Addr),
+      'city' => trim($line->City),
+      'province' => trim($line->State),
+      'postal_code' => trim($line->Zip),
+      'country' => 'us', );
+      $coordinates = db_query(
+              'select l.lid, l.latitude, l.longitude
+                from {location} l
+                where l.street = :street and
+                l.city = :city and
+                l.province = :province and
+                l.postal_code = :zip and
+                l.country = :country
+                limit 1',
+                array(
+                  ':street' => trim($line->Addr),
+                  ':city' => trim($line->City),
+                  ':province' => trim($line->State),
+                  ':zip' => trim($line->Zip),
+                  ':country' => 'us'
+                )
+                );
+              $latitude = 0;
+              $longitude = 0;
+              foreach ($coordinates as $record) {
+                $latitude = $record->latitude;
+                $longitude = $record->longitude;
+                $found_lid = $record->lid;
+              }
+              if ($latitude != 0 or $longitude != 0) {
+                $found++;
+                $location['lid'] = $found_lid;
+                $location['inhibit_geocode'] = true;
+                $location['latitude'] = $latitude;
+                $location['longitude'] = $longitude;
+              }
+      $criteria = array(
+        
+      );
+      $lid = location_save($location);
+      if ($lid){
+        $node->field_location[$node->language][0] = location_load_location($lid);
+        $node->field_location[$node->language][0]['phone'] = trim($line->Phone);
+      }
+    node_save($node); // After this call we'll get a nid
+    /// \\ End Mario V Code
+    
+    //// jghyde code
+  
+    $context['results'][] = $node->title;
+  
+    // Update our progress information.
+    unset($query);
+    $context['sandbox']['progress']++;
+    $context['sandbox']['current_node'] = $node->nid;
+    $context['message'] = t('Now processing :num - :num2 of :total', array(':num' => $start, ':num2' => ($start + $batch_size), ':total' => $context['sandbox']['max']));
+    unset($node);
+    }
+    else {
+     // Update our progress information.
+    unset($query);
+    $context['sandbox']['progress']++;
+    $context['sandbox']['current_node'] = $node->nid;
+    $context['message'] = t('Now processing :num - :num2 of :total', array(':num' => $start, ':num2' => ($start + $batch_size), ':total' => $context['sandbox']['max']));     
+    }
+  }
+}
+
+function ssrx_delete_providers() {
+  $provider_count = db_query('SELECT COUNT(*) FROM {node} where type=:provider', array(':provider' => 'provider'))->fetchField();
+  $batch_size = 250;
+  $counter = 0;
+  $operations = array();
+  while ($counter < $provider_count) {
+    if ($counter >= $provider_count) {
+      $batch_size = $provider_count - $counter;
+    }
+    $operations[] = array(
+      '_ssrx_delete_provider',
+      array(
+        $counter,
+        $batch_size,
+      ),
+    );
+    $counter += $batch_size;
+    if (isset($_REQUEST['one_batch'])) {
+      break;
+    }
+  }
+  
+  if (count($operations)) {
+    $batch = array(
+      'operations' => $operations,
+      'finished' => 'ssrx_delete_batch_finished',
+      'title' => t('Processing Provider Delete Batch'),
+      'init_message' => t('Provider Delete Batch is starting.'),
+      'progress_message' => t('Processed Batches @current out of @total.'),
+      'error_message' => t('Provider Delete Batch has encountered an error.'),
+    );
+    batch_set($batch);
+    batch_process('admin/config/system/providers');
+  }
+  else {
+    drupal_set_message('Nothing to delete');
+    drupal_goto('admin/config/system/providers');
+  }
+}
+
+function _ssrx_delete_provider($start, $batch_size, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_node'] = 0;
+    $context['sandbox']['max'] = db_query('SELECT COUNT(DISTINCT nid) FROM {node} where type=:type', array(':type' => 'provider'))->fetchField();
+  }
+  
+  $result = db_query_range("SELECT nid, type FROM {node} WHERE type=:type ORDER BY nid ASC", 0, $batch_size, array(':type' => 'provider'))->fetchAll();
+  $nids = array();
+  foreach ($result as $line) {
+    if ($line->type == 'provider') {
+      $nids[] = $line->nid;
+    }
+    if (count($nids) > 0) {
+      node_delete_multiple($nids);
+    }
+    //// jghyde code
+  
+    $context['results'][] = count($nids) . ' deleted';
+  
+    // Update our progress information.
+    $context['sandbox']['progress'] + count($nids);
+    //$context['sandbox']['current_node'] = $line->nid;
+    $context['message'] = t('Now deleting :num - :num2 of :total', array(':num' => $start, ':num2' => ($start + $batch_size), ':total' => $context['sandbox']['max']));
+    unset($nids);
+  }
+}
+
+/**
+ * The summary of the batch success or failure
+ */
+function ssrx_import_batch_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we could do something meaningful with the results.
+    // We just display the number of nodes we processed...
+    if (count($results) > 0) {
+      drupal_set_message(t('@count rows of data imported.', array('@count' => count($results),)));
+      drupal_set_message(t('The final result was "%final, and there were !dups duplicates (duplicates, if any, were ignored)."', array('%final' => end($results), '!dups' => (!empty($result['dups']) ? $result['dups'] : 'no'),)));
+    }
+    else {
+      drupal_set_message(t('Nothing was imported because all records were duplicates'));
+    }
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
+  }
+}
+function ssrx_delete_batch_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we could do something meaningful with the results.
+    // We just display the number of nodes we processed...
+    drupal_set_message(t('All provider nodes deleted.'));
+    drupal_set_message(t('The final result was "%final"', array('%final' => end($results),)));
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
+  }  
+}
+/**
+ * Helper function that formats phone numbers
+ */
+function _ssrx_import_format_phone($number = '') {
+  if (preg_match( '/^\+\d(\d{3})(\d{3})(\d{4})$/', $number,  $matches ) ) {
+    $result = '(' . $matches[1] . ') '  . $matches[2] . '-' . $matches[3];
+    return $result;
+  }
+  else {
+    return $number;
+  }
+}
+
+function _accesibility_field_value($value) {
+  if ($value == 'Y') {
+    return 'Y';
+  }
+  elseif ($value == 'N'){
+    return 'N';
+  }
+  else {
+    return 'NA';
+  }
+}

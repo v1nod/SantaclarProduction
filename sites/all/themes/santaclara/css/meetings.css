@@ -1,0 +1,174 @@
+h1#page-title{
+  display: block !important;
+  color: #99789E;
+  font-size: 18px;
+  font-family: 'PFDinTextCondStd-Medium';
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: normal;
+  margin-bottom: 30px;
+}
+
+.cool-table table.views-table,
+.cool-table table.sticky-header{
+  border: none;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+.cool-table table.views-table thead th,
+.cool-table table.sticky-header thead th{
+  vertical-align: middle;
+  text-align: center;
+  border: none;
+  border-right: 2px solid white;
+  background: #58455B;
+  color: white;
+  font-size: 16px;
+  font-family: 'PFDinTextCondStd-Medium';
+  font-weight: normal;
+  height: 69px;
+  padding: 0 21px;
+}
+.cool-table table.views-table thead th.last,
+.cool-table table.sticky-header thead th.last,
+.cool-table table.views-table tbody td.vietnamese{
+  border-right: none;
+}
+.cool-table table.views-table tr{
+  background: white;
+}
+.cool-table table.views-table tr{
+  background: none;
+  border: none;
+  border-bottom: 2px solid white;
+  padding: 0;
+}
+.cool-table table.views-table tr.views-row-last{
+  border-bottom: none;
+}
+table.views-table tr td{
+  vertical-align: middle;
+  height: 50px;
+  padding: 0 21px;
+  border: none;
+  border-right: 2px solid white;
+  background: #F6F6F6;
+  font-family: 'MuseoSans', Arial, Sans;
+  font-weight: 500;
+  color: #5D5959;
+  font-size: 13px;
+}
+table.views-table tr.hover td{
+  background: #F1F1F1;
+}
+table.views-table td.meetings{
+  border-right: none;
+}
+table.views-table td.download{
+  padding: 0;
+}
+table.views-table td.download a{
+  display: block;
+  text-align: center;
+  padding: 17px 0 16px 0;
+}
+table.views-table td.download a span{
+  display: inline-block;
+  background: url(../images/file-download.png) no-repeat;
+  text-indent: -9999px;
+  height: 17px;
+  width: 16px;
+}
+table.views-table td.download a:hover span{
+  background-position: 0 -18px;
+}
+.cool-table .more-link{
+  text-align: left;
+}
+.cool-table .more-link a{
+  display: inline-block;
+  background-color: #F3802B;
+  color: white;
+  font-family: "MuseoSans", Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  cursor: pointer;
+  border: none;
+}
+.cool-table .more-link a:hover{
+  background-color: #8E7094;
+}
+.cool-table select{
+  width: 195px;
+}
+.cool-table .view-header{
+  margin-bottom: 40px;
+}
+
+
+/* Column widths */
+.cool-table table.views-table th.date,
+.cool-table table.views-table td.date, 
+.cool-table table.sticky-header th.date{
+  width: 87px !important;
+}
+.cool-table table.views-table th.time,
+.cool-table table.views-table td.time, 
+.cool-table table.sticky-header th.time{
+  width: 110px !important;
+}
+.cool-table table.views-table th.agenda,
+.cool-table table.views-table th.agenda-packate,
+.cool-table table.views-table th.meetings,
+.cool-table table.sticky-header th.agenda,
+.cool-table table.sticky-header th.agenda-packate,
+.cool-table table.sticky-header th.meetings,
+.cool-table table.views-table td.download{
+  width: 45px !important;
+}
+
+/* Exceptions for Forms and Documents */
+.cool-table.forms-and-documents table.views-table thead th,
+.cool-table.forms-and-documents table.sticky-header thead th,
+.cool-table.forms-and-documents table.views-table tbody td{
+  padding: 0 40px;
+}
+.cool-table.forms-and-documents table.views-table thead th.name,
+.cool-table.forms-and-documents table.sticky-header thead th.name,
+.cool-table.forms-and-documents table.views-table tbody td.name{
+  width: auto ;
+  padding: 0 50px;
+  text-align: left;
+}
+.cool-table.forms-and-documents table.views-table th.date,
+.cool-table.forms-and-documents table.views-table td.date, 
+.cool-table.forms-and-documents table.sticky-header th.date{
+  width: 94px !important;
+  text-align: center;
+}
+.cool-table.forms-and-documents table.views-table th.download,
+.cool-table.forms-and-documents table.sticky-header th.download,
+.cool-table.forms-and-documents table.views-table td.download{
+  padding: 0 !important;
+  width: 107px !important;
+}
+
+/* Exceptions for Newsletters */
+.cool-table.newsletters table.views-table thead th,
+.cool-table.newsletters table.sticky-header thead th,
+.cool-table.newsletters table.views-table tbody td{
+  padding: 0 40px;
+}
+.cool-table.newsletters table.views-table th.date,
+.cool-table.newsletters table.views-table td.date, 
+.cool-table.newsletters table.sticky-header th.date{
+  width: 541px !important;
+  text-align: left;
+}
+.cool-table.newsletters table.views-table th.download,
+.cool-table.newsletters table.sticky-header th.download,
+.cool-table.newsletters table.views-table td.download{
+  padding: 0 !important;
+  width: 107px !important;
+}

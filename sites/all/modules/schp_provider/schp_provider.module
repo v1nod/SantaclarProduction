@@ -1,0 +1,206 @@
+<?php
+/**
+ * This module is in charge of the provider registration.
+ */
+
+/**
+ * Implements hook_permission
+ */
+function schp_provider_permission() {
+  return array(
+    'Provider Registration Confirm Page' => array(
+      'title' => t('Provider Registration Confirm Page'), 
+      'description' => t('Provider Registration Confirm Page'), 
+    ), 
+  );
+}
+
+/**
+ * Implements hook_menu
+ */
+function schp_provider_menu() {
+  $items = array();
+  $items['for-providers/provider-tools/registration-confirm'] = array(
+    'title' => 'Provider Registration Confirm', 
+    'page callback' => 'schp_provider_menu_registration_confirm', 
+    'access arguments' => array('Provider Registration Confirm Page'), 
+    'type' => MENU_CALLBACK, 
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_block_info.
+ */
+function schp_provider_block_info() {
+  $blocks['provider_register'] = array(
+    'info' => t('Provider Register Form'), 
+    'cache' => DRUPAL_NO_CACHE, 
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view.
+ */
+function schp_provider_block_view($delta = '') {
+  $block = array();
+  
+  switch($delta) {
+    case 'provider_register':
+      $block['subject'] = t('New Provider Registration (<font color="red">*</font> Required)');
+      $block['content'] = drupal_render(drupal_get_form('schp_provider_register_form'));
+      break;
+  }
+  
+  return $block;
+}
+
+/**
+ * Returns a form for Register Providers.
+ */
+function schp_provider_register_form($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'schp_provider') . '/js/schp_provider-register.js');
+  $form = array();
+  $form['name'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Your Name'), 
+    '#required' => TRUE, 
+  );
+  $form['phone'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Phone'), 
+    '#required' => TRUE, 
+  );
+  $form['mail'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Email'), 
+    '#required' => TRUE, 
+  );
+  $form['provider_name'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Provider Name'), 
+    '#required' => TRUE, 
+  );
+  $form['company_name'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Company Name/Medical Group'), 
+    '#required' => TRUE, 
+  );
+  $form['company_address'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Company Address'), 
+    '#required' => TRUE, 
+  );
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Register'), 
+  );
+  return $form;
+}
+
+/**
+ * Validates the register form submission.
+ */
+function schp_provider_register_form_validate($form, &$form_state) {
+  
+}
+
+/**
+ * Process the register form submission.
+ */
+function schp_provider_register_form_submit(&$form, &$form_state) {
+  if ( !(empty($form_state['values']['name']) && 
+    empty($form_state['values']['phone']) &&
+    empty($form_state['values']['mail']) && 
+    empty($form_state['values']['provider_name']) && 
+    empty($form_state['values']['company_name']) && 
+    empty($form_state['values']['company_address'])) ) {
+    schp_provider_register_mail($form_state['values']);
+  }
+  //drupal_set_message('Registration Request Sent.');
+  $form_state['redirect'] = 'for-providers/provider-tools/registration-confirm';
+}
+
+/**
+ * Mails the submission of the form provider register.
+ */
+function schp_provider_register_mail($params) {
+  $from = variable_get('schp_provider_register_mail_from', 'scfhpweb@scfhp.com');
+  $to = variable_get('schp_provider_register_mail_to', 'providerservices@scfhp.com');
+  $to_name = variable_get('schp_provider_register_mail_to_name', 'Provider Services');
+  $subject = variable_get('schp_provider_register_mail_subject', 'SCFHP Website - New Provider Id/Pwd Request');
+  $theme_args = array(
+    'subject' => $subject, 
+    'date' => date('l, F j, Y g:i A'), 
+    'requester_name' => '', 
+    'phone' => '', 
+    'email' => '', 
+    'provider_name' => '', 
+    'company_name' => '', 
+    'company_address' => '', 
+  );
+  if ( !empty($params['name']) ) {
+    $theme_args['requester_name'] = $params['name'];
+  }
+  if ( !empty($params['phone']) ) {
+    $theme_args['phone'] = $params['phone'];
+  }
+  if ( !empty($params['mail']) ) {
+    $theme_args['email'] = $params['mail'];
+  }
+  if ( !empty($params['provider_name']) ) {
+    $theme_args['provider_name'] = $params['provider_name'];
+  }
+  if ( !empty($params['company_name']) ) {
+    $theme_args['company_name'] = $params['company_name'];
+  }
+  if ( !empty($params['company_address']) ) {
+    $theme_args['company_address'] = $params['company_address'];
+  }
+  
+  $message = theme('schp_provider-register-mail', $theme_args);
+  
+  // Headers
+  $headers  = 'MIME-Version: 1.0' . "\r\n";
+  $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+  $headers .= "To: {$to}\r\n";
+  $headers .= "From: {$from}\r\n";
+  
+  return mail($to, $subject, $message, $headers);
+}
+
+/**
+ * Implements hook_theme
+ */
+function schp_provider_theme() {
+  return array(
+    'schp_provider-register-mail' => array(
+      'arguments' => array(
+        'subject' => '', 
+        'date' => '', 
+        'requester_name' => '', 
+        'phone' => '', 
+        'email' => '', 
+        'provider_name' => '', 
+        'company_name' => '', 
+        'company_address' => '', 
+      ), 
+      'template' => 'theme/schp_provider-register-mail', 
+    ), 
+  );
+}
+
+/**
+ * Displays a confirmation after a provider registration form was submitted.
+ */
+function schp_provider_menu_registration_confirm() {
+  $message = t('Thank you, your submission has been received.');
+  $link = l('Go back to Providers Tools', 'node/14082');
+  $output = "<div class='registration-confirm'>
+    <p>
+      {$message}
+    </p>
+    <p>{$link}</p>";
+  return $output;
+}

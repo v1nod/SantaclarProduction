@@ -1,0 +1,61 @@
+.webform-component-managed_file{
+  width: 485px;
+}
+.form-managed-file{
+  background: url(../images/file-input-bg.png) no-repeat;
+  padding-left: 10px;
+  height: 53px;
+}
+span.stylefileinput-container{
+  position:relative;
+  padding: 10px 10px 10px 0;
+  height: 33px;
+  display: block;
+  background: url(../images/file-input-bg.png) no-repeat 100% 0;
+}
+.form-managed-file input.form-submit{
+  display: none;
+}
+
+span.stylefileinput-container span{
+  position:absolute;
+  display:block;
+  top:9px;
+  overflow:hidden;
+  z-index:1;
+  width:147px;
+  height:36px;
+  background: pink;
+  opacity:0;
+  filter:alpha(opacity=0)
+}
+
+span.stylefileinput-container span input{
+  position:absolute;
+  left:-90px;
+  cursor:pointer;
+  background: black;
+  height: 53px;
+}
+
+span.stylefileinput-container input.choose-file{
+  background: url(../images/file-input-btn.png) no-repeat;
+  position:relative;
+  z-index:0;
+  border: none;
+  background-color: transparent;
+  height: 35px;
+  width: 147px;
+  font-family: 'MuseoSans', Arial, Sans;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5D5959;
+}
+
+span.stylefileinput-container strong{
+  margin:0 10px 0 25px;
+  font-family: 'MuseoSans', Arial, Sans;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666666;
+}

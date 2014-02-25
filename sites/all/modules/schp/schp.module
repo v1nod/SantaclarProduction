@@ -1,0 +1,1106 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function schp_menu() {
+  $items['providers/login'] = array(
+    'title' => 'Providers Login',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('schp_provider_login_form'),
+    'access callback' => TRUE
+  );
+  
+  $items['for-members/find-a-doctor'] = array(
+    'title' => 'Provider Information',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('schp_provider_search_form'),
+    'access callback' => TRUE
+  );
+  $items['for-providers/find-a-doctor'] = $items['for-members/find-a-doctor'];
+  return $items;
+}
+
+
+
+/**
+ * Implements hook_block_info().
+ */
+function schp_block_info() {
+  // This example comes from node.module.
+  $blocks['provider_registration'] = array(
+    'info' => t('Provider Registration Form'),
+    'cache' => DRUPAL_NO_CACHE
+  );
+  $blocks['pharmacy_important_numbers'] = array(
+    'info' => t('Pharmacy Important Numbers'), 
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function schp_block_view($delta = '') {
+  // This example comes from node.module. Note that you can also return a
+  // renderable array rather than rendered HTML for 'content'.
+  $block = array();
+
+  switch ($delta) {
+    case 'provider_registration':
+      $block['subject'] = t('NEW PROVIDER REGISTRATION');
+      $block['content'] = drupal_get_form('schp_registration_form');
+      break;
+
+    case 'pharmacy_important_numbers':
+      return schp_block_view_pharmacy_important_numbers();
+      break;
+  }
+  return $block;
+}
+/**
+ * Implements hook_filter_info().
+ */
+function schp_filter_info() {
+  $filters['medi_cal'] = array(
+    'title' => t('Wrap Medi-Cal in nowrap span'),
+    'description' => t('Prevents the word "Medi-Cal" to be split when at the end of a line.'),
+    'process callback' => 'schp_filter_medi_cal_process',
+
+  );
+  return $filters;
+}
+
+function schp_filter_medi_cal_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+  $text = preg_replace('/Medi-Cal/', '<span class="nowrap">Medi-Cal</span>', $text);
+  return $text;
+}
+
+function schp_block_view_pharmacy_important_numbers() {
+  if ( !((arg(0) == 'node' || arg(0) == 'print') && arg(1) == 6337 && is_null(arg(2))) ) {
+    return false;
+  }
+  
+  return array(
+    'subject' => t('Important Numbers'), 
+    'content' => '<ul><li class="first"><h3 class="important_numbers_header">Provider Services Department Phone</h3><div class="phone-number">1-408-874-1788</div></li><li><h3 class="important_numbers_header">Provider Services Department Fax</h3><div class="phone-number">1-408-376-3537</div></li></ul>', 
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function schp_provider_login_form($form, &$form_state) {
+  $form['#attached']['js'] = array(
+   drupal_get_path('module', 'schp') . '/js/jquery.infieldlabel.min.js',
+   drupal_get_path('module', 'schp') . '/js/login.js' 
+  );
+  $form['form_title'] = array(
+    '#markup' => 'PROVIDER LOGIN',
+    '#prefix' => '<h2 class="form-title">',
+    '#suffix' => '</h2>',
+  );
+  
+  $form['provider_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Provider ID'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  
+  $form['password'] = array(
+    '#type' => 'password',
+    '#title' => t('Password'),
+    '#size' => 30,
+    '#maxlength' => 64,
+  );
+  $form['actions_container'] = array(
+    '#value' => 'value',
+    '#prefix' => '<div class="actions-container clearfix">',
+    '#suffix' => '</div>',
+  );
+  
+  $form['actions_container']['disclaimer'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Disclaimer'),
+    '#default_value' => -1,
+  );
+  
+  $form['actions_container']['disclaimer_text'] = array(
+    '#markup' => '<div class="disclaimer-text"><h3>Note:</h3><div class="copy">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div><div class="disclaimer-bottom"></div>',
+    '#prefix' => '<div class="disclaimer">',
+    '#suffix' => '</div>',
+    
+  );
+  
+  $form['actions_container']['login'] = array(
+    '#type' => 'submit',
+    '#value' => t('Login'),
+  );
+  
+  return $form;
+}
+
+
+
+/**
+ * Implements hook_form().
+ */
+function schp_registration_form($form, &$form_state) {
+  $form['#attached']['js'] = array(
+   drupal_get_path('module', 'schp') . '/js/jquery.infieldlabel.min.js',
+   drupal_get_path('module', 'schp') . '/js/register.js' 
+  );
+  $form['full_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Your Name'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  $form['phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Phone Number'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email Address'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  
+  $form['company_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Company Name'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  
+  $form['company_address'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Company Address'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+  
+  $form['register'] = array(
+    '#prefix' => '<div class="submit-container clearfix">',
+    '#type' => 'submit',
+    '#value' => t('Register'),
+    '#suffix' => '</div>',
+  );
+  
+  return $form;
+}
+
+function schp_registration_form_submit($form, &$form_state) {
+  drupal_set_message(t('Thanks for registering!'));
+}
+
+/**
+ * Implements hook_form().
+ */
+function schp_provider_search_form($form, &$form_state) {
+  $form['#client_validation'] = TRUE;
+  $form['#attached']['js'] = array(
+    'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.js' => array('type' => 'external'),
+   drupal_get_path('module', 'schp') . '/js/chosen.jquery.min.js',
+   drupal_get_path('module', 'schp') . '/js/jquery.infieldlabel.min.js',
+   drupal_get_path('module', 'schp') . '/js/provider-search.js', 
+   
+  );
+  $form['#attached']['css'] = array(
+   drupal_get_path('module', 'schp') . '/js/chosen.css'
+  );
+  $form['title'] = array(
+    '#prefix' => '<h2 class= "form-title">',
+    '#suffix' => '</h2>',
+    '#markup' => t('Provider Information')
+  );
+  $form['required_info'] = array(
+    '#prefix' => '<div class= "form-info">',
+    '#suffix' => '</div>',
+  );
+  $form['required_info']['required'] = array(
+    '#prefix' => '<span class="error">',
+    '#suffix' => '</span>',
+    '#markup' => t('*')
+  );
+  $form['required_info']['required_text'] = array(
+    '#markup' => t('Required Information')
+  );
+  $form['plan'] = array(
+    '#type' => 'select',
+    '#multiple' => false,
+    '#attributes' => array(
+      'data-placeholder' => array('Type of Plan'),
+    ),
+    '#options' => array(
+      '' => '',
+      'HK' => 'Healthy Kids',
+      'MC' => 'Medi-Cal'
+    ),
+    '#default_value' => '',
+    '#validate' => array(
+      'required' => array(true, t('Please Select the Type of Plan.')),
+    ),
+  );
+
+  
+  $form['type'] = array(
+    '#type' => 'select',
+    '#multiple' => false,
+    '#attributes' => array(
+      'data-placeholder' => array('Type of Provider'),
+    ),
+    '#options' => array(
+      '' => '',
+      'PCP' => 'Primary Care Provider',
+      'SPC' => 'Specialist',
+      'ANC' => 'Ancillary',
+      'HSP' => 'Hospital',
+      'URG' => 'Urgent Care',
+      'CLN' => 'Clinic',
+      'MHH'  => 'Mental Health'
+    ),
+    '#default_value' => '',
+    '#description' => '<div class="form-error-message">Please Select the Type of Provider.</div>'
+  );
+  
+  
+  
+  
+  $form['last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Enter Provider Last Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'PCP'),
+         )
+    )
+
+  );
+  
+  $form['spc_last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Enter Provider Last Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'SPC'),
+         )
+    )
+
+  );
+  
+  $form['anc_last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Provider Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'ANC'),
+         )
+    )
+
+  );
+  
+  $form['hsp_last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Hospital Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'HSP'),
+         )
+    )
+
+  );
+  $form['cln_last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Provider Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'CLN'),
+         )
+    )
+
+  );
+  $form['mhh_last_name'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Name')),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'MH'),
+         )
+    )
+
+  );
+  $pcp_options = array(
+    '' => '',
+    'CLNP' => 'Clinic-PCP',
+    'FP01' => 'Family Practice',
+    'GP01' => 'General Practice',
+    'GR01' => 'Geriatric Medicine',
+    'IM01' => 'Internal Medicine',
+    'OBG1' => 'Obstetrics/Gynecology',
+    'PD01' => 'Pediatrics',
+  );
+  $specialist_options = array(
+    '' => '',
+   
+    'ADL' => 'Adolescent Medicine-Pediatrics',
+    'ADM' => 'Addiction Medicine-Internal Medicine',
+    'AI' => 'Allergy & Immunology',
+    'AMB' => 'Ambulance - Land Transport',
+    'AN' => 'Anesthesiology',
+    'ATP' => 'Anatomic Pathology',
+    'AUD' => 'Audiologist',
+    'AUHA' => 'Audiology & Hearing Aids',
+   
+    'CCM' => 'Internal Medicine - Critical Care Medicine',
+    'CCS' => 'Surgery - Surgical Critical Care',
+    'CD' => 'Cardiovascular Diseases',
+    'CDS' => 'Cardiovascular Surgery',
+    'CE' => 'Cardiac Electrophysiology',
+   
+    'CHIR' => 'Chiropractic (Healthy Kids Only)',
+
+    'CNP' => 'Clinical Neurophysiology',
+    'CP02' => 'Child/Adolescent Psychiatry',
+    'CRS' => 'Colon And Rectal Surgery',
+    'D' => 'Dermatology',
+  
+    'DMP' => 'Dermatopathology',
+    'EDM' => 'Endocrinology/Diabetes/Metabolism',
+  
+    'GE' => 'Gastroenterology',
+ 
+    'GO' => 'Gynecological Oncology',
+ 
+    'GS' => 'General Surgery',
+    'GYN' => 'Gynecology',
+ 
+    'HEM' => 'Hematology',
+    'HEON' => 'Hematology & Oncology',
+   
+    'HIVA' => 'HIV/Aids',
+   
+    'HS' => 'Hand Surgery',
+  
+    'ID' => 'Infectious Disease',
+  
+   
+    'IP' => 'Immunopathology',
+  
+    'LCSW' => 'Clinical Social Work (Healthy Kids Only)',
+    'MFCC' => 'Marriage Family Counseling (Healthy Kids Only)',
+   
+    'N' => 'Neurology',
+    'NEP' => 'Nephrology',
+  
+    'NPSY' => 'Neuropsychology',
+    'NS' => 'Neurological Surgery',  
+    'OBG2' => 'Obstetrics/Gynecology',  
+    'OM' => 'Occupational Medicine',
+    'ON' => 'Oncology',
+    'OPH' => 'Ophthalmology',
+    'ORS' => 'Orthopedic Surgery',
+    'OTO' => 'Otolaryngology',
+   
+    'PDA' => 'Pediatric Allergy',
+    'PDB' => 'Pediatric Developmental - Behavioral Pediatrics (Healthy Kids Only)',
+    'PDC' => 'Pediatric Cardiology',
+   
+    'PDE' => 'Pediatric Endocrinology',
+    'PDI' => 'Pediatric Infectious Diseases',
+    'PDRM' => 'Pediatric Dermatology',
+    'PDRU' => 'Pediatric Rheumatology',
+    'PDS' => 'Pediatric Surgery',
+    'PDU' => 'Pediatric Urology',
+    'PGE' => 'Pediatric Gastroenterology',
+ 
+    'PHO' => 'Pediatric Hematology-Oncology',
+  
+    'PMT' => 'Pain Management',
+    'PN' => 'Pediatric Neurology',
+    'PNP' => 'Pediatric Nephrology',
+    'POD' => 'Podiatry',
+    'PP' => 'Pediatric Pulmonology',
+  
+    'PS' => 'Plastic Surgery',
+    'PSCL' => 'Psychology (Healthy Kids Only)',
+   
+    'PUD' => 'Pulmonary Disease',
+    'PY02' => 'Psychiatry (Healthy Kids Only)',
+    'RAD' => 'Radiology',
+    'REN' => 'Reproductive Endocrinology',
+    'RHU' => 'Rheumatology',
+    'RO' => 'Radiation Oncology',
+  
+    'SDM' => 'Sleep Disorder Medicine',
+    'SM' => 'Sports Medicine',
+  
+    'TS' => 'Thoracic/Cardiothoracic Surgery',
+    'U' => 'Urology',
+ 
+     'VIR' => 'Vascular & Interven\'l Radiology',
+     'VS' => 'Vascular Surgery',
+     
+
+
+  );
+  
+ /* sort($specialist_options);*/
+  $anc_options = array(
+    '' => '',
+    
+   
+    'AUHA' => 'Audiology & Hearing Aids',
+   
+    'DIAL' => 'Dialysis Facility',
+    'DME' => 'DME/Orthotics/Prosthetics/Supplies',
+    'DMEM' => 'Durable Medical Equipment & Medical Supplies',
+    'HH' => 'Home Health',
+    'HHHP' => 'Home Health & Hospice',
+    'LAB' => 'Laboratory',
+    'MS' => 'Medical Supplies',
+    
+    'OCTH' => 'Occupational Therapist',
+    'PTH' => 'Pathology Anatomic/Clinical',
+    'PPT' => 'Pediatric Physical Therapist',
+    'PTHR' => 'Physical Therapy',
+    'PHLB' => 'Physiological Laboratory',
+    'RAD' => 'Radiology',
+    'HSNF' => 'Skilled Nursing Facility',
+   
+    'SPT' => 'Speech Therapy',
+    'HSUB' => 'Sub-Acute Facility',
+     'DASC' => 'Dental Ambulatory Surgery Center',
+     'DM' => 'Durable Medical Equipment',
+     'NTR' => 'Nutrition',
+     'PM' => 'Physical Medicine Rehab',
+     'PRO' => 'Prosthetics/Orthotics',
+     'RPT' => 'Respiratory Therapy',
+   
+  );
+  /*sort($anc_options);*/
+  $hsp_options = array(
+    '' => '',
+    'AC' => 'Acute Hospital - County Hospital',
+    'TRAU' => 'Trauma Center',
+  );
+  
+  $mh_options = array(
+    '' => '',
+    'ADM' => 'Addiction Medicine-Internal Medicine',
+    'CP02' => 'Child/Adolescent Psychiatry',
+    'PY02' => 'Psychiatry',
+  );
+  
+  
+  $form['spec'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Primary Care Provider Specialty'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $pcp_options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'PCP'),
+         )
+    )
+  );
+
+  $form['spc_spec'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Specialty'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $specialist_options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'SPC'),
+         )
+    )
+  );
+  
+  $form['anc_spec'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Specialty'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $anc_options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'ANC'),
+         )
+    )
+  );
+  
+  $form['hsp_spec'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Hospital Type'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $hsp_options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'HSP'),
+         )
+    )
+  );
+  
+  $form['mhh_spec'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Specialty'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $mh_options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'MHH'),
+         )
+    )
+  );
+  $options = array(
+      '' => '',
+      'Independent Physicians Group' => 'Independent Physicians Group',
+      'Kaiser Permanente' => 'Kaiser Foundation Health Plan (Medi-Cal Only)',
+      'Palo Alto Medical Foundation' => 'Palo Alto Medical Foundation',
+      'Physicians Medical Group of SJ' => 'Physicians Medical Group of SJ',
+      'Premier Care' => 'Premier Care',
+      'Valley Health Plan' => 'Valley Health Plan'
+    );
+  $form['network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'PCP'),
+         )
+    )
+  );
+  
+  $form['spc_network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'SPC'),
+         )
+    )
+  );
+  
+  $form['anc_network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'ANC'),
+         )
+    )
+  );
+  
+  $form['urg_network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'URG'),
+         )
+    )
+  );
+  $form['cln_network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'CLN'),
+         )
+    )
+  );
+  
+  $form['mhh_network'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Network/IPA'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'MHH'),
+         )
+    )
+  );
+  $form['gender'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Gender'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => array(
+      '' => 'Provider Gender',
+      'Female' => 'Female',
+      'Male' => 'Male'
+    ),
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'PCP'),
+         )
+    )
+  );
+  
+  $form['spc_gender'] = array(
+  '#attributes' => array(
+    'data-placeholder' => array('Provider Gender'),
+  ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => array(
+      '' => '',
+      'Female' => 'Female',
+      'Male' => 'Male'
+    ),
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'SPC'),
+         )
+    )
+  );
+  
+  $form['anc_gender'] = array(
+    '#attributes' => array(
+      'data-placeholder' => array('Provider Gender'),
+    ),
+    '#type' => 'select',
+    '#multiple' => false,
+    '#options' => array(
+      '' => 'Provider Gender',
+      'Female' => 'Female',
+      'Male' => 'Male'
+    ),
+    '#default_value' => '',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'ANC'),
+         )
+    )
+  );
+  $form['provider_availability'] = array(
+    '#type' => 'radios',
+    '#title' => t('Provider Availability'),
+    '#options' => array(
+      '0' => 'Show All',
+      '1' => 'Accepting New Patients'
+    ),
+    '#default_value' => '1',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'PCP'),
+         )
+    )
+  );
+  
+  $form['spc_provider_availability'] = array(
+    '#type' => 'radios',
+    '#title' => t('Provider Availability'),
+    '#options' => array(
+      '0' => 'Show All',
+      '1' => 'Accepting New Patients'
+    ),
+    '#default_value' => '1',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'SPC'),
+         )
+    )
+  );
+  
+  $form['anc_provider_availability'] = array(
+    '#type' => 'radios',
+    '#title' => t('Provider Availability'),
+    '#options' => array(
+      '0' => 'Show All',
+      '1' => 'Accepting New Patients'
+    ),
+    '#default_value' => '1',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'ANC'),
+         )
+    )
+  );
+  
+  $form['mhh_provider_availability'] = array(
+    '#type' => 'radios',
+    '#title' => t('Provider Availability'),
+    '#options' => array(
+      '0' => 'Show All',
+      '1' => 'Accepting New Patients'
+    ),
+    '#default_value' => '1',
+    '#states' => array(
+      'visible' => array(
+           ':input[name="type"]' => array('value' => 'MHH'),
+         )
+    )
+  );
+$options = array(
+  '' => 'Provider Language',
+  'Arabic' => 'Arabic',
+  'Armenian' => 'Armenian',
+  'Bengali' => 'Bengali',
+  'Bulgarian' => 'Bulgarian',
+  'Burmese' => 'Burmese',
+  'Cambodian' => 'Cambodian',
+  'Cantonese' => 'Cantonese',
+  'Chinese' => 'Chinese',
+  'Croatian' => 'Croatian',
+  'Dutch' => 'Dutch',
+  'Farsi' => 'Farsi',
+  'Filipino' => 'Filipino',
+  'French' => 'French',
+  'German' => 'German',
+  'Gujarati' => 'Gujarati',
+  'Hebrew' => 'Hebrew',
+  'Hindi' => 'Hindi',
+  'Hungarian' => 'Hungarian',
+  'Ilocano' => 'Ilocano',
+  'Italian' => 'Italian',
+  'Japanese' => 'Japanese',
+  'Kannada' => 'Kannada',
+  'Konkani' => 'Konkani',
+  'Korean' => 'Korean',
+  'Malay' => 'Malay',
+  'Malayalam' => 'Malayalam',
+  'Mandarin' => 'Mandarin',
+  'Marathi' => 'Marathi',
+  'Nepali' => 'Nepali',
+  'Polish' => 'Polish',
+  'Portuguese' => 'Portuguese',
+  'Punjabi' => 'Punjabi',
+  'Romanian' => 'Romanian',
+  'Russian' => 'Russian',
+  'Serbian' => 'Serbian',
+  'Spanish' => 'Spanish',
+  'Swahili' => 'Swahili',
+  'Tagalog' => 'Tagalog',
+  'Taiwanese' => 'Taiwanese',
+  'Tamil' => 'Tamil',
+  'Telugu' => 'Telugu',
+  'Thai' => 'Thai',
+  'Turkish' => 'Turkish',
+  'Urdu' => 'Urdu',
+  'Vietnamese' => 'Vietnamese',
+  
+);
+$form['provider_language'] = array(
+  '#type' => 'select',
+  '#title' => t('Preferences'),
+  '#multiple' => false,
+  '#options' => $options,
+  '#default_value' => '',
+  '#states' => array(
+    'visible' => array(
+         ':input[name="type"]' => array('value' => 'PCP'),
+       )
+  )
+);
+$form['spc_provider_language'] = array(
+  '#type' => 'select',
+  '#title' => t('Preferences'),
+  '#multiple' => false,
+  '#options' => $options,
+  '#default_value' => '',
+  '#states' => array(
+    'visible' => array(
+         ':input[name="type"]' => array('value' => 'SPC'),
+       )
+  )
+);
+
+$form['anc_provider_language'] = array(
+  '#type' => 'select',
+  '#title' => t('Preferences'),
+  '#multiple' => false,
+  '#options' => $options,
+  '#default_value' => '',
+  '#states' => array(
+    'visible' => array(
+         ':input[name="type"]' => array('value' => 'ANC'),
+       )
+  )
+);
+
+$form['cln_provider_language'] = array(
+  '#type' => 'select',
+  '#title' => t('Preferences'),
+  '#multiple' => false,
+  '#options' => $options,
+  '#default_value' => '',
+  '#states' => array(
+    'visible' => array(
+         ':input[name="type"]' => array('value' => 'CLN'),
+       )
+  )
+);
+
+  $form['accesibility'] = array(
+    '#prefix' => '<div class="accesibility-options">',
+    '#suffix' => '</div>'
+  );
+  $form['accesibility']['title'] = array(
+    '#markup' => '<h2>I need a Provider with accessible:</h2><div class="info-box">(Select those that apply)</div>'
+  );
+  $form['accesibility']['parking'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Parking'),
+    '#default_value' => -1,
+  );
+  $form['accesibility']['iba'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Interior Building Access'),
+    '#default_value' => -1,
+  );
+  $form['accesibility']['eba'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exterior Building Access'),
+    '#default_value' => -1,
+  );
+  $form['accesibility']['exam_room'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exam Room'),
+    '#default_value' => -1,
+  );
+  $form['accesibility']['exam_table'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Exam Table/Scale'),
+    '#default_value' => -1,
+  );
+  $form['accesibility']['restroom'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Restroom'),
+    '#default_value' => -1,
+  );
+  $form['location'] = array(
+    '#prefix' => '<div class="preferred-location">',
+    '#suffix' => '</div>'
+  );
+  $form['location']['street'] = array(
+    '#type' => 'textfield',
+     '#title' => t('Preferred Location of Provider'),
+    '#attributes' => array('placeholder' => array('Enter Address')),
+    '#size' => 60,
+    '#maxlength' => 255,
+  );
+  $options = array(
+    '' => '',
+    'Alviso' => 'Alviso',
+    'Campbell' => 'Campbell',
+    'Cupertino' => 'Cupertino',
+    'Gilroy' => 'Gilroy',
+    'Los Altos' => 'Los Altos',
+    'Los Gatos' => 'Los Gatos',
+    'Milpitas' => 'Milpitas',
+    'Morgan Hill' => 'Morgan Hill',
+    'Mountain View' => 'Mountain View',
+    'Palo Alto' => 'Palo Alto',
+    'San Jose' => 'San Jose',
+    'Santa Clara' => 'Santa Clara',
+    'Saratoga' => 'Saratoga',
+    'Stanford' => 'Stanford',
+    'Sunnyvale' => 'Sunnyvale'
+  );
+  $form['location']['city'] = array(
+    '#type' => 'select',
+    '#attributes' => array(
+      'data-placeholder' => array('Select City:'),
+    ),
+    '#multiple' => false,
+    '#options' => $options,
+    '#default_value' => '',
+    
+  );
+  $form['location']['zipcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter your Zip Code'),
+    '#size' => 60,
+    '#maxlength' => 6,
+    '#required' => true,
+    '#description' => '<div class="form-error-message">Please enter your Zip Code.</div>',
+    '#validate' => array(
+      'required' => array(true, t('Please enter your Zip Code.')),
+    ),
+    
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit'
+  );
+  return $form;
+}
+function schp_provider_search_form_submit($form, &$form_state) {
+  $query_string = array();
+  
+  $query_string['plan'] =  $form_state['values']['plan'];
+  $query_string['prov_type'] =  $form_state['values']['type'];
+  switch ($form_state['values']['type']) {
+    case 'PCP':
+      $spec = $form_state['values']['spec'];
+      $network = $form_state['values']['network'];
+      $gender = $form_state['values']['gender'];
+      $lang = $form_state['values']['provider_language'];
+      $lname = $form_state['values']['last_name'];
+      $avail = $form_state['values']['provider_availability'] == '1'? '1' : 'All';
+      break;
+    case 'SPC':
+      $spec = $form_state['values']['spc_spec'];
+      $network = $form_state['values']['spc_network'];
+      $gender = $form_state['values']['spc_gender'];
+      $lang = $form_state['values']['spc_provider_language'];
+      $lname = $form_state['values']['spc_last_name'];
+      $avail = $form_state['values']['spc_provider_availability'] == '1'? '1' : 'All';
+      break;
+    case 'ANC':
+      $spec = $form_state['values']['anc_spec'];
+      $network = $form_state['values']['anc_network'];
+      $gender = $form_state['values']['anc_gender'];
+      $lang = $form_state['values']['anc_provider_language'];
+      $lname = $form_state['values']['anc_last_name'];
+      $avail = $form_state['values']['anc_provider_availability'] == '1'? '1' : 'All';
+      break;
+    case 'CLN':
+      $spec = '';
+      $network = $form_state['values']['cln_network'];
+      $lang = $form_state['values']['cln_provider_language'];
+      $lname = $form_state['values']['cln_last_name'];
+      $avail = 'All';
+      $gender = '';
+      break;
+    case 'MHH':
+      $spec = $form_state['values']['mhh_spec'];
+      $network = $form_state['values']['mhh_network'];
+      $lang = $form_state['values']['mhh_provider_language'];
+      $lname = $form_state['values']['mhh_last_name'];
+      $avail = $form_state['values']['mhh_provider_availability'] == '1'? '1' : 'All';
+      $gender = '';
+      break;
+    case 'HSP':
+      $spec = $form_state['values']['hsp_spec'];
+      $network = '';
+      $gender = '';
+      $lang = '';
+      $avail = 'All';
+      break;
+    case 'URG':
+      $spec = '';
+      $network = $form_state['values']['urg_network'];
+      $gender = '';
+      $lang = '';
+      $avail = 'All';
+      break;
+    default:
+      $spec = '';
+      $network = '';
+      $gender = '';
+      $avail = 'All';
+      break;
+  }
+  
+  //exam=Y&exam_table=Y&eba=All&iba=Y&parking=Y&restroom=All
+  $query_string['spec'] =  $spec;
+  $query_string['network'] =  $network;
+  $query_string['gender'] =  $gender;
+  $query_string['prov_lang'] =  $lang;
+  $query_string ['parking'] = $form_state['values']['parking']? 'Y' : 'All';
+  $query_string['exam'] = $form_state['values']['exam_room']? 'Y' : 'All';
+  $query_string['exam_table'] = $form_state['values']['exam_table']? 'Y' : 'All';
+  $query_string['iba'] = $form_state['values']['iba']? 'Y' : 'All';
+  $query_string['eba'] = $form_state['values']['eba']? 'Y' : 'All';
+  $query_string['restroom'] = $form_state['values']['restroom']? 'Y' : 'All';
+  $query_string['lname'] =  $lname;
+  $query_string['new_pat'] = $avail;
+  //Location: Drumroll Please
+  $location = array();
+
+    $location['street'] = $form_state['values']['street'];
+    $location['additional'] = '';
+    $location['city'] = $form_state['values']['city'];
+    $location['province'] = 'CA';
+    $location['country'] = 'us';
+    $location['postal_code'] = $form_state['values']['zipcode'];
+    $coordinates = location_latlon_exact($location);
+  
+    $query_string['distance']['latitude'] = $coordinates['lat'];
+    $query_string['distance']['longitude'] = $coordinates['lon'];
+    $query_string['distance']['search_distance'] = '10';
+    $query_string['distance']['search_units'] = 'mile'; 
+    $query_string['location'] = $location;
+
+
+  $form_state['redirect'] = array (
+    'for-members/find-a-doctor/search-results',
+    array('query' => $query_string)
+    
+  );
+
+}
+
+
+function schp_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'schp') . '/includes/views'
+  );
+}

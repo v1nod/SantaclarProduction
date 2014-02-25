@@ -1,0 +1,42 @@
+/** Styles for Grievance Form **/
+.node-type-webform .field-name-body{
+  margin-bottom: 42px !important;
+}
+.node.view-mode-full .field-name-body p{
+  margin-bottom: 17px;
+}
+.node-type-webform .field-name-body h2{
+  margin-top: 60px;
+  margin-bottom: 12px;
+}
+.field-name-field-attachment{
+  margin-top: 40px;
+}
+.field-name-field-header h2{
+  margin-bottom: 10px;
+}
+.field-name-field-attachment > .field-label{
+  font-family: 'PFDinTextCondStd-Medium';
+  font-size: 18px;
+  line-height: 1.3em;
+  font-weight: normal;
+  font-style: normal;
+}
+.node-type-webform .group_container_1{
+  float: left;
+  width: 270px;
+}
+.node-type-webform .group_container_2{
+  margin-left: 334px;
+}
+.webform-preview.node-type-webform .group_container_2{
+  margin-left: 64px;
+  float: left;
+}
+.node-type-webform #webform-component-birthdate,
+#webform-component-member-name{
+  clear: both;
+}
+#edit-submitted-language-select{
+  width: 215px;
+}

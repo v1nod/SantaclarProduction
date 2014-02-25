@@ -1,0 +1,727 @@
+/* 
+    Document   : scfhp_global
+    Created on : Nov 12, 2013, 6:43:20 PM
+    Author     : achauhan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.field-name-field-for-provider-resources .field-name-field-label .field-items , 
+.field.field-name-field-temp-five-rr-box3-titl.field-type-text.field-label-hidden > .field-items ,
+.field.field-name-field-temp-five-rr-box2-titl.field-type-text.field-label-hidden > .field-items { 
+    background-color: #98789D!important;
+    color: #FFFFFF;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 48px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 0 32px;
+}
+.node.ds-2col.view-mode-full .group-right .field-name-field-for-provider-resources .field-items , .group-right .field-name-field-temp-seven-rr-box-thre-ttl .field-items {
+    background-color: none!important;
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+}
+
+.node.ds-2col.view-mode-full .group-right .field-name-field-for-provider-resources .field-name-field-providers-links-title .field-items {
+    background-color: #F1F0F0;
+    padding-left: 35px!important;
+    padding-right: 35px!important;
+}
+.node-type-for-providers-landing-page #zone-content {
+    padding: 0px 0 0;
+}
+
+.node span.optional_box {
+    border:solid 1px;
+}
+.node .field-name-field-mat-id-dis-dat-temp-five, .node .field-name-field-material-id-disc-dat-cmc-l, .node .field-name-field-material-id-disclaimer-dat {
+    margin-top: 20px;
+}
+.node-type-cmc-landing-page .field-name-field-benefit-changes-for-upcomi {
+    margin-bottom: 10px;
+    padding: 8px 16px
+}
+.node-type-cmc-landing-page .field-name-field-material-id-disc-dat-cmc-l, .node-type-generic-page-template .field-name-field-mat-id-discl-dat-no-right  {
+    border: solid 1px;
+}
+
+.node-type-cmc-page .field-name-field-material-id-disclaimer-dat, .node-type-generic-page-template .field-name-field-mat-id-discl-dat-no-right {
+    border: solid 1px;
+    padding: 0 10px;
+}
+
+
+/* for Cal-MediConnect Forms & Documents */
+.cool-table .view-header {
+    margin-bottom: 40px;
+}
+
+/* 29Nov by Astha starts */
+select#edit-submitted-language-select {
+    width: 215px!important;
+}
+/* 29Nov by Astha ends */
+#webform-component-date-demo div.webform-datepicker{
+    padding-top:11px;
+}
+
+/* css for date dropdown of submit-a-dispute ends */
+
+
+/* added by vinod */
+
+body.node-type-cmc-page div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden,
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden,
+body.node-type-for-providers-page div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden,
+body.node-type-for-providers-landing-page   div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden,
+body.node-type-member-login-temp-seven   div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden
+{
+    background-color:#98789D ;
+    color: #FFFFFF;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom:20px;
+    line-height: 48px;
+    text-align: center;
+    text-transform: capitalize;
+}
+body.node-type-for-providers-landing-page   div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden{
+    margin-bottom:06px;
+}
+
+body.node-type-for-providers-landing-page   div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-providers-landing-page-rr-.field-type-text.field-label-hidden{
+    margin-bottom:3px;
+}
+body.node-type-cmc-page  div.group-right div.field-collection-container div.field-name-field-temp-seven-rr-box-two-con div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-cmc-page  div.group-right div.field-collection-container div.field-name-field-providers-right-rail-num-c div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-cmc-page  div.group-right div.field-collection-container div.field-name-field-cmc-right-rail-importantno div.content div.field.field-type-text.field-label-hidden:first-child ,
+body.node-type-cmc-page  div.group-right div.field-collection-container div.field-name-field-temp-five-rr-con-us-collec div.content div.field.field-type-text.field-label-hidden:first-child {
+    margin-bottom:0;
+}
+body.node-type-for-providers-page div.group-right div.field-collection-container div.field-name-field-temp-seven-rr-box-two-con div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-for-providers-page div.group-right div.field-collection-container div.field-name-field-providers-right-rail-num-c div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-for-providers-page div.group-right div.field-collection-container div.field-name-field-cmc-right-rail-importantno div.content div.field.field-type-text.field-label-hidden:first-child ,
+body.node-type-for-providers-page div.group-right div.field-collection-container div.field-name-field-temp-five-rr-con-us-collec div.content div.field.field-type-text.field-label-hidden:first-child {
+    margin-bottom:0;
+}
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.field-name-field-temp-seven-rr-box-two-con div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.field-name-field-providers-right-rail-num-c div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.field-name-field-cmc-right-rail-importantno div.content div.field.field-type-text.field-label-hidden:first-child ,
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.field-name-field-temp-five-rr-con-us-collec div.content div.field.field-type-text.field-label-hidden:first-child {
+    margin-bottom:0;
+}
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container div.field-name-field-provi-land-page-ri-imp-no div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container div.field-name-field-providers-right-rail-num-c div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container div.field-name-field-cmc-right-rail-importantno div.content div.field.field-type-text.field-label-hidden:first-child ,
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container div.field-name-field-temp-five-rr-con-us-collec div.content div.field.field-type-text.field-label-hidden:first-child {
+    margin-bottom:0;
+}
+body.node-type-member-login-temp-seven div.group-right div.field-collection-container div.field-name-field-provi-land-page-ri-imp-no div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-member-login-temp-seven div.group-right div.field-collection-container div.field-name-field-providers-right-rail-num-c div.content div.field.field-type-text.field-label-hidden:first-child,
+body.node-type-member-login-temp-seven div.group-right div.field-collection-container div.field-name-field-cmc-right-rail-importantno div.content div.field.field-type-text.field-label-hidden:first-child ,
+body.node-type-member-login-temp-seven div.group-right div.field-collection-container div.field-name-field-temp-seven-rr-box-two-con div.content div.field.field-type-text.field-label-hidden:first-child {
+    margin-bottom:0;
+}
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-prov-land-pg-ri-imp-no-c.field-type-text.field-label-hidden{
+    margin-bottom:20px;
+}
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-temp-sev-rr-box-thre-con.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-temp-sev-rr-box-thre-ttl.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-providers-numbers-label.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-providers-numbers-content.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-cmc-right-rail-imp-n.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-cmc-right-rail-imp-c.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-temp-five-rr-cont-us-cont.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-prov-land-page-rig-no-titl.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-prov-land-pg-ri-imp-no-c.field-type-text.field-label-hidden div.field-items,
+div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-name-field-temp-five-rr-con-us-title.field-type-text.field-label-hidden div.field-items
+{
+    background-color:#F1F0F0 ;
+    text-align: left;
+}
+body.node-type-cmc-page  div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden  div.field-items,
+body.node-type-cmc-landing-page  div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden  div.field-items,
+body.node-type-for-providers-page  div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden  div.field-items ,
+body.node-type-for-providers-landing-page  div.group-right div.field-collection-container div.entity-field-collection-item div.content div.field.field-type-text.field-label-hidden  div.field-items {
+
+    /*  background-color:inherit;*/
+}
+
+div.group-right div.field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden{
+    margin-bottom:0px;
+}
+.node.ds-2col.view-mode-full .group-right .field .field-items div.field.field-name-field-cmc-enrollment-title.field-type-text.field-label-hidden div.field-items,.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-cmc-right-rail-program-ttl div.field-items,.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-cmc-right-rail-resources-l div.field-items,.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-providers-links-title div.field-items,.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-providers-landing-page-rr- div.field-items, div.group-right div.field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items, div.group-right div.field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items, div.group-right div.field.field-name-field-temp-sev-rr-box-3-ttl.field-type-text.field-label-hidden div.field-items, div.group-right div.field.field-name-field-temp-seven-rr-box-labe.field-type-text.field-label-hidden div.field-items{
+    background-color: #98789D;
+}
+.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-prov-land-page-rig-ref div.field-items{
+    background-color: #98789D;
+}
+
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items div.field-collection-view div.content div.field-type-text-with-summary,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-providers-right-rail-num-c,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-temp-seven-rr-box-two-con,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-cmc-right-rail-importantno,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-temp-five-rr-con-us-collec
+{ 
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+}
+
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-providers-right-rail-num-c,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-temp-seven-rr-box-two-con,
+div.group-right div.field-collection-container div.field-type-field-collection div.field-items   div.field-collection-view   div.field-collection-item-field-temp-five-rr-con-us-collec{
+
+    padding-bottom: 15px;
+}
+
+.group-right .field .field-items div.field-name-field-temp-five-rr-box2-cont,.group-right .field .field-items div.field-name-field-temp-five-rr-box3-cont{ 
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+div.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-cmc-right-rail-resources-c div.field-items div.field-item h2 ,
+div.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-temp-sev-rr-box-3-con div.field-items div.field-item h2 ,
+div.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-providers-links-content div.field-items div.field-item h2 ,
+div.node.ds-2col.view-mode-full .group-right .field .field-items div.field-name-field-temp-five-rr-box3-cont div.field-items div.field-item h2{
+    color: #98789D;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 21px;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0 0 15px;
+    text-align: left;
+    text-transform: none;
+}
+
+body.node-type-cmc-page div.group-right div.field-collection-container div.field-type-field-collection div.field-items ,
+body.node-type-cmc-landing-page div.group-right div.field-collection-container div.field-type-field-collection div.field-items ,
+body.node-type-member-login-temp-seven div.group-right div.field-collection-container div.field-type-field-collection div.field-items ,
+body.node-type-report-fraud-temp-five .node.ds-2col.view-mode-full .group-right .field .field-items,
+body.node-type-for-providers-landing-page  div.group-right div.field-collection-container div.field-type-field-collection div.field-items,
+body.node-type-for-providers-page  div.group-right div.field-collection-container div.field-type-field-collection div.field-items{
+    /*   padding-bottom: 5px !important;*/
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background-color: #F1F0F0;
+}
+div.group-right div.field-collection-container div.field.field-name-field-providers-landing-page-inf.field-type-field-collection.field-label-hidden div.field-items ,
+div.group-right div.field-collection-container div.field.field-name-field-temp-five-rr-box3.field-type-field-collection.field-label-hidden div.field-items {
+    padding-bottom: 5px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background-color: #F1F0F0;
+}
+div.content div.view-mode-full div.group-right div.field-collection-container{
+    margin:0;
+}
+.group-right div.field-collection-view div.content div.field-items div.field-item a {
+    background: url("../images/backgrounds/arrowNew.png") no-repeat scroll 0 center transparent;
+    display: inline-block;
+    padding-bottom: 3px;
+    padding-left: 42px;
+    padding-top: 7px;
+    color:#EA672A;
+}
+
+div.field-collection-view div.content div.field-items div.field-item a[href$=".pdf"]{
+    background: url("../images/backgrounds/pdfNew.png") no-repeat scroll 0 center transparent;
+}
+div.field-collection-view div.content div.field-items div.field-item a.first{
+    background: url("../images/backgrounds/link-icon.png") no-repeat scroll 0 center transparent;
+}
+div.field-collection-view div.content div.field-name-field-providers-landing-links-co div.field-items div.field-item a {
+    text-transform: uppercase;
+    font-weight:bold;
+    cursor: pointer;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height:21px;
+}
+div.field-collection-view div.content div.field-name-field-prov-land-page-rig-content div.field-items div.field-item a {
+    text-transform: uppercase;
+    font-weight:bold;
+    cursor: pointer;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height: 21px;
+}
+div.field-collection-view div.content div.field-items div.field-item a:hover {color: #A0A0A0;}
+
+/* div.field-collection-view div.content div.field-items div.field-item a[href$=".pdf"]{background-position:0 3px;}*/
+.field.field-name-field-cmc-right-rail-important-n.field-type-text.field-label-hidden, .field.field-name-field-providers-right-rail-numbe.field-type-text.field-label-hidden, .field.field-name-field-prov-land-pg-r-imp-no-lab.field-type-text.field-label-hidden, .field.field-name-field-temp-seven-rr-box-two-ttl.field-type-text.field-label-hidden, .field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden {
+    background: url("../images/backgrounds/important-numbers-bg-2.png") no-repeat scroll left top #F1F0F0;
+    height: 58px;
+    padding: 20px 0 24px;
+    width: 270px;
+}
+
+.field.field-name-field-cmc-right-rail-important-n.field-type-text.field-label-hidden div.field-items,.field.field-name-field-providers-right-rail-numbe.field-type-text.field-label-hidden div.field-items,.field.field-name-field-prov-land-pg-r-imp-no-lab.field-type-text.field-label-hidden div.field-items{
+    background-color:transparent !important;
+}
+
+.field.field-name-field-temp-seven-rr-box-two-ttl.field-type-text.field-label-hidden div.field-items,
+.field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items{
+    background-color:transparent !important;
+}
+
+.field.field-name-field-cmc-right-rail-important-n.field-type-text.field-label-hidden div.field-items > div.field-item, .field.field-name-field-providers-right-rail-numbe.field-type-text.field-label-hidden div.field-items > div.field-item, .field.field-name-field-prov-land-pg-r-imp-no-lab.field-type-text.field-label-hidden div.field-items > div.field-item , .field.field-name-field-temp-seven-rr-box-two-ttl.field-type-text.field-label-hidden div.field-items > div.field-item  , .field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items > div.field-item {   
+    background: none repeat scroll 0 0 transparent;
+    color: #99789E;
+    font-size: 18px;
+    line-height: 1em;
+    margin: 0;
+    text-align: center;
+}
+.field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items > div.field-item {
+    text-align: center;
+}
+.field.field-name-field-cmc-right-rail-imp-n.field-type-text.field-label-hidden div.field-item ,.field.field-name-field-providers-numbers-label.field-type-text.field-label-hidden div.field-item ,.field.field-name-field-prov-land-page-rig-no-titl.field-type-text.field-label-hidden div.field-item,  div.group-right div.field-name-field-temp-five-rr-con-us-title div.field-items div.field-item ,  div.group-right div.field-name-field-temp-sev-rr-box-thre-ttl div.field-items div.field-item {
+    color: #99789E;
+    font-family: "MuseoSans";
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.3em;
+    margin: 0 0 5px;
+    text-transform: uppercase;
+}
+
+.field.field-name-field-cmc-right-rail-imp-c.field-type-text.field-label-hidden div.field-item,.field.field-name-field-providers-numbers-content.field-type-text.field-label-hidden div.field-item,.field.field-name-field-prov-land-pg-ri-imp-no-c.field-type-text.field-label-hidden div.field-item,  div.group-right div.field-name-field-temp-five-rr-cont-us-cont div.field-items div.field-item ,  div.group-right div.field-name-field-temp-sev-rr-box-thre-con div.field-items div.field-item {
+    color: #999999;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 31px;
+    line-height: 1em;
+    text-transform: uppercase;
+}
+div.field-collection-view div.content div.field-items div.field-item p{
+    margin-bottom:12px; 
+}
+.field.field-name-field-providers-landing-page-inf.field-type-field-collection.field-label-hidden {
+    margin-top: 67px;
+}
+div.field-collection-view div.content div.field-name-field-providers-landing-links-co div.field-items div.field-item p ,
+div.field-collection-view div.content div.field-name-field-prov-land-page-rig-content div.field-items div.field-item p {
+    background: url("../images/backgrounds/double-border.png") repeat-x scroll left bottom transparent;
+    height: auto;
+    margin-bottom: 0;
+    padding: 6.5px 0;
+}
+/*
+div.group-right div.field-collection-container div.field-name-field-temp-five-rr-con-us-collec div.field-items{
+  padding-top:20px;
+}*/
+
+div.field-collection-view div.content div.field-items div.field-item   ul.healthcare_plans_block li {list-style-image:none;}
+ul.healthcare_plans_block a {
+    color: #EA672A;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 50px;
+    text-transform: uppercase;
+}
+div.field-collection-view div.content div.field-items div.field-item  ul.healthcare_plans_block li:nth-child(1) a {
+    background: url("../images/sprite-icon-medical.gif") no-repeat scroll left 10px transparent;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 48px;
+}
+div.field-collection-view div.content div.field-items div.field-item ul.healthcare_plans_block li:nth-child(2) a {
+    background: url("../images/sprite-icon-medicare.gif") no-repeat scroll left 10px transparent;
+    display: inline-block;
+    height: 39px;
+    line-height: 39px;
+    padding-left: 48px;
+}
+div.field-collection-view div.content div.field-items div.field-item  ul.healthcare_plans_block li:nth-child(3) a {
+    background: url("../images/sprite-icon-kids.gif") no-repeat scroll left 10px transparent;
+    display: inline-block;
+    height: 43px;
+    line-height: 43px;
+    padding-left: 48px;
+}
+div.field-collection-view div.content div.field-items div.field-item  ul.healthcare_plans_block li:nth-child(4) a {
+    background: url("../images/sprite-icon-workers.gif") no-repeat scroll left 10px transparent;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 48px;
+}
+
+/* To change webform lebel */
+.node-webform .form-item .compact-form-label {
+    /*  color: #888888;*/
+    color:#5D5959;
+    cursor: text;
+    font-size: 13px;
+    font-weight: 500;
+    left: 25px;
+    top: 12px;
+}
+/* to change accordian*/
+div.ui-accordion div.field-item div.field-collection-view p {
+    font-size:14px;
+}
+
+div.field-name-field-cmc-right-rail-program-ttl div.field-items  div.field-item.even,
+div.field-name-field-cmc-right-rail-resources-l div.field-items  div.field-item.even {
+    line-height: 24px;
+    padding-bottom: 10px;
+    padding-top: 12px;
+}
+
+body.node-type-for-providers-landing-page div.group-right div.field-collection-container   .field.field-name-field-provi-land-page-ri-imp-no.field-type-field-collection.field-label-hidden > div.field-items{
+    background-color: #F1F0F0;
+    padding-left: 35px !important;
+    padding-right: 35px  !important;
+}
+
+/* new breadcumb */
+
+div.easy-breadcrumb a.easy-breadcrumb_segment-front{
+    background: url("../images/backgrounds/breadcrumbs-home.png") no-repeat scroll center center transparent;
+    height: 36px;
+    padding: 0;
+    text-indent: -99999em;
+    width: 100px;
+    display: inline-block;
+}
+
+.easy-breadcrumb  a.easy-breadcrumb_segment, .easy-breadcrumb  span.easy-breadcrumb_segment {
+    color: #EA672A;
+    display: inline-block;
+    font-family: 'Kroeger',Arial,Helvetica,sans-serif;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: normal;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px 0 20px;
+    text-align: center;
+    text-transform: uppercase;
+    background: url("../images/backgrounds/breadcrumb-separator.png") no-repeat scroll left top transparent;
+    float: left;
+    height: 36px;
+    margin: 0;
+}
+.easy-breadcrumb {
+    background: url("../images/backgrounds/breadcrumbs-bg.png") repeat-x scroll left top transparent;
+    overflow: hidden;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+}
+
+.easy-breadcrumb a:link, .breadcrumb a:visited {
+    color: #EA672A;
+}
+.easy-breadcrumb a:hover, .easy-breadcrumb { color: #7C7C7C;}
+
+div.content div.easy-breadcrumb span.easy-breadcrumb_segment-title{ color:#7C7C7C; }
+.node-type-webform .field-name-body div.field-item h2 {  margin-top: 28px;}
+
+.site-map-box-menu.site-map-box-menu-main-menu.site-map-box ul.site-map-menu li a,.site-map-box-menu.site-map-box-menu-main-menu.site-map-box-menu.site-map-box-menu-menu-footer-menu.site-map-box ul.site-map-menu li a{color:#EA672A;}
+.site-map-box-menu.site-map-box-menu-main-menu.site-map-box ul.site-map-menu li a:hover,.site-map-box-menu.site-map-box-menu-main-menu.site-map-box-menu.site-map-box-menu-menu-footer-menu.site-map-box ul.site-map-menu li a:hover{color:#A0A0A0;}
+div.group-right div div.field-item.even > p:last-child { padding-bottom: 15px;}
+
+fieldset.form-wrapper span.fieldset-legend
+{
+    color: #999999;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    font-weight: normal;
+    padding-top: 5px;
+}
+
+div.form-item.form-type-item div {
+    clear: both;
+    margin: 12px 0 25px;
+}
+
+#webform-component-tiene-algun-problema-que-necesita-atencion-medica-en-los-proximos-tres-dias-o-tiene-dolor-intenso .webform-long-answer {
+    float: left;
+    height: auto;
+    width: 200px;
+}
+#webform-component-tiene-algun-problema-que-necesita-atencion-medica-en-los-proximos-tres-dias-o-tiene-dolor-intenso {
+    overflow: hidden;
+}
+
+div.form-item.form-type-item label {
+    float: left;
+    padding-right: 53px;
+    width: 211px;
+}
+div.fieldset-wrapper div.form-item.form-type-select {
+    margin-top: 9px;
+}
+.webform-client-form .form-type-item .form-item .content{float:left;clear:none;margin:0;width:auto;}
+.form-item.webform-component.webform-component-textfield.compact-form-wrapper {clear:both}
+/*for media coverage hover*/
+.view-media-coverage .views-field-title-2 span a:hover {
+    color: #F4822A;
+}
+fieldset.form-wrapper.required span.fieldset-legend:after {
+    color: red;
+    content: "*";
+    display: inline;
+    font-size: 16px;
+    padding-left: 4px;
+}
+.block.block-easy-breadcrumb {
+    padding-left: 9px;
+    width: 942px;
+}
+body.webform-preview div.vietnamese_dob,
+body.webform-preview div.vietnamese_dop,
+body.webform-preview div.spanish_dob,
+body.webform-preview div.spanish_dop,
+body.webform-preview div.chinese_dob,
+body.webform-preview div.chinese_dop
+{
+    display:none;
+}
+.node-type-webform #webform-component-zip-code{clear:none;}
+body.node-type-for-providers-landing-page .block.block-views  {  margin: 0 0 30px 14px;}
+body.node-type-for-providers-landing-page div#providers_news  {	margin-top: 30px;}
+body.node-type-for-providers-landing-page div#providers_news div#block-views-community-news-block-1{	width:600px;}
+body.node-type-for-providers-landing-page div#providers_news div#block-views-call-out-blocks-block-6{	padding-right: 60px;}
+body.node-type-for-providers-landing-page div#providers_news div#block-views-call-out-blocks-block-7{	margin-left: 0;}
+body.page-healthcareplans div.region-content div.view-content div.field-item p {	margin-bottom:0;}
+body.page-node-60191.node-type-for-providers-landing-page div#node-for-providers-landing-page-60191 div.group-left {
+    padding-right: 21px;
+    width: 616px;
+}
+.node.ds-2col.view-mode-full div.content .field-name-field-image{	margin: 0 0 16px 0;}
+
+/* CSS added by Astha on 28Dec2013 starts*/
+
+.field.field-name-field-cmc-right-rail-important-n.field-type-text.field-label-hidden div.field-items > div.field-item, .field.field-name-field-providers-right-rail-numbe.field-type-text.field-label-hidden div.field-items > div.field-item, .field.field-name-field-prov-land-pg-r-imp-no-lab.field-type-text.field-label-hidden div.field-items > div.field-item , .field.field-name-field-temp-seven-rr-box-two-ttl.field-type-text.field-label-hidden div.field-items > div.field-item  , .field.field-name-field-temp-five-rr-con-us.field-type-text.field-label-hidden div.field-items > div.field-item {
+    font-family: 'PFDinTextCondStd-Medium';
+}
+ul.healthcare_plans_block li:last-child {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0)!important;
+}
+
+
+/* CSS added by Astha for allignment of city & zipcode on spanish form starts (30Dec13) */
+.node-type-webform #webform-component-ciudad {
+    float: left;
+    margin-top: 0;
+    width: 225px;
+}
+.webform-client-form #edit-submitted-ciudad {
+    width: 175px;
+}
+.node-type-webform #webform-component-codigo-postal {
+    clear: none;
+}
+.node-type-webform #webform-component-codigo-postal {
+    float: left;
+    margin-left: 10px;
+    margin-top: 0;
+    width: 170px;
+}
+.webform-client-form #edit-submitted-codigo-postal {
+    width: 120px;
+}
+
+.node-type-webform #webform_spanish_dob {
+    clear: both;
+}
+
+/* CSS added by Astha for allignment of city & zipcode on vietnamese form starts (30Dec13) */
+.node-type-webform #webform-component-thanh-pho {
+    float: left;
+    margin-top: 0;
+    width: 225px;
+}
+.webform-client-form #edit-submitted-thanh-pho {
+    width: 175px;
+}
+.node-type-webform #webform-component-mabuudien {
+    clear: none;
+}
+.node-type-webform #webform-component-mabuudien {
+    float: left;
+    margin-left: 10px;
+    margin-top: 0;
+    width: 170px;
+}
+.webform-client-form #edit-submitted-mabuudien {
+    width: 120px;
+}
+
+.node-type-webform #webform_vietnamese_dob {
+    clear: both;
+}
+
+/* CSS added by Astha for allignment of city & zipcode on chinese form starts (30Dec13) */
+.node-type-webform #webform-component-cheng-shi--city {
+    float: left;
+    margin-top: 0;
+    width: 225px;
+}
+.webform-client-form #edit-submitted-cheng-shi-city {
+    width: 175px;
+}
+.node-type-webform #webform-component-you-zheng-bian-ma--zipcode {
+    clear: none;
+}
+.node-type-webform #webform-component-you-zheng-bian-ma--zipcode {
+    float: left;
+    margin-left: 10px;
+    margin-top: 0;
+    width: 170px;
+}
+.webform-client-form #edit-submitted-you-zheng-bian-ma-zipcode {
+    width: 120px;
+}
+
+.node-type-webform #webform_chinese_dob {
+    clear: both;
+}
+
+
+
+
+.field-name-field-benefit-changes-for-upcomi {
+    background-color: #98789D;
+    color: #FFFFFF;
+}
+
+.ds-2col .optional_box {
+    color: #999999;
+    float: left;
+    font-family: pfdintextcondstd-medium;
+    font-size: 104%;
+    margin-bottom: 5px;
+    margin-top: 80px;
+}
+
+#node-generic-page-template-60237 .field-name-field-mat-id-discl-dat-no-right {
+    border: none;
+    color: #999999;
+    float: left;
+    font-family: pfdintextcondstd-medium;
+    font-size: 104%;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.field-name-field-cmc-enrollment-content .field-item p:first-child {
+    color: #98789D!important;
+    font-weight: bold;
+    font-size: 14px;
+}
+.field-name-field-cmc-enrollment-content .field-item p {
+    color: #999999;
+    font-family: pfdintextcondstd-medium;
+    font-size: 17px;
+}
+.field-name-field-cmc-enrollment-content .field-item p:last-child {
+    font-size: 14px;
+}
+#edit_submitted_language_select_chzn .chzn-drop {
+    width: 215px!important;
+}
+.webform-client-form .form-textarea {
+    font-family: Microsoft Sans Serif;
+    font-size: 13.333px!important;
+}
+/* Added by Astha on 10Jan13 starts */
+
+.field-name-field-related-info-items ul li {
+    font-size: 14.1833px;
+}
+
+.node-webform .field-name-field-material-id {
+    color: #999999;
+    float: left;
+    font-family: pfdintextcondstd-medium;
+    font-size: 104%;
+    margin-bottom: 5px;
+    margin-top: 80px;
+}
+.node-webform .field-name-field-material-id .field-label {
+    font-weight: normal;
+}
+.region-content .block .node-member-login-temp-seven p img {
+    background-color: white!important;
+}
+
+/*Added by Vinod 17 Jan*/
+.node-type-cmc-page div.group-left div.field-items ul li ul {font-size: 98%;}
+
+/* Added by Astha on 20Jan2013 starts 
+*/
+
+.node-cmc-page .field-name-field-page-subtitle-tagline- {
+    color: #98789D;
+    display: block;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    font-weight: normal;
+}
+.node-for-providers-page .field-name-field-page-subtitle-tagline- {
+    color: #98789D;
+    display: block;
+    font-family: 'PFDinTextCondStd-Medium';
+    font-size: 16px;
+    font-weight: normal;
+}
+.view-id-documents .view-footer p {
+    border: medium none;
+    color: #999999;
+    float: left;
+    font-family: pfdintextcondstd-medium;
+    font-size: 104%;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+/* css updated by Astha on 27Jan starts */
+
+.view-calmediconnect-documents .view-footer {
+    border: medium none;
+    color: #999999;
+    float: left;
+    font-family: pfdintextcondstd-medium;
+    font-size: 104%;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+/* css updated by Astha on 29Jan starts */
+#block-block-20 ul#member_resources_block a {
+    background: url("../images/backgrounds/arrowNew.png") no-repeat scroll 0 center transparent!important;
+    display: inline-block;
+    padding-bottom: 3px;
+    padding-left: 42px;
+    padding-top: 7px;
+    color:#EA672A;
+    line-height: 21px;
+}
+#block-block-20 ul#member_resources_block li {
+    background: url("../images/backgrounds/double-border.png") repeat-x scroll left bottom transparent;
+    height: auto;
+    margin-bottom: 0;
+    padding: 6.5px 0;
+}
+#block-block-20 ul#member_resources_block li.first a {
+    background: url("../images/backgrounds/link-icon.png") no-repeat scroll 0 center transparent!important;
+}
+#schp-provider-search-form .chzn-drop {
+    width: 407px!important;
+}

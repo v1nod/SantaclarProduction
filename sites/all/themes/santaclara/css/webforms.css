@@ -1,0 +1,263 @@
+.node-type-webform h1.page-title{
+  margin-bottom: 22px;
+}
+.node-type-webform .file-application-pdf .content a{
+  background: none;
+  padding: 0;
+}
+.node-type-webform .file-application-pdf img{
+  display: none;
+}
+.node-type-webform .file-application-pdf .content a span.ext{
+  color: #A5A5A5;
+  background: none !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+.node-type-webform .form-item .compact-form-label{
+  cursor: text;
+  color: rgb(136, 136, 136);
+  font-weight: 400;
+  font-size: 13px;
+  top: 12px;
+  left: 25px;
+}
+.node-type-webform .form-item input[type="text"],
+.node-type-webform .form-item input[type="email"]{
+  padding-left: 25px;
+  padding-right: 25px;
+  width: 355px;
+}
+.node-type-webform #webform-component-city{
+  float: left;
+  width: 225px;
+  margin-top: 0;
+}
+.node-type-webform #webform-component-zip-code{
+  margin-top: 0;
+  float: left;
+  width: 170px;
+  margin-left: 10px;
+}
+.webform-client-form{
+  width: 606px;
+}
+.webform-client-form #edit-submitted-city{
+  width: 175px;
+}
+.webform-client-form #edit-submitted-zip-code{
+  width: 120px;
+}
+.node-type-webform .form-item textarea{
+  resize: none;
+  border-radius:8px;
+  border:none;
+  background-color:#f5f5f5;
+  margin:0;
+  padding:15px 25px;
+  box-shadow: inset 0 0 8px 8px #e3e3e3;
+}
+.node-type-webform .form-item textarea.error{
+  border: 2px solid red;
+}
+
+
+.node-type-webform .webform-component-date > label,
+.node-type-webform .webform-component-radios > label,
+.node-type-webform .webform-component-managed_file > label,
+.node-type-webform fieldset.captcha legend span.fieldset-legend{
+  padding-top: 5px;
+  font-family:'PFDinTextCondStd-Medium';
+  font-weight: normal;
+  color: #999999;
+  font-size: 1.15em;
+  font-size: 16px;
+}
+.node-type-webform fieldset.captcha legend span.fieldset-legend{
+  padding-top: 30px;
+  display: block;
+}
+.node-type-webform .field-name-field-header h2{
+  font-family:'PFDinTextCondStd-Medium';
+  margin-bottom: 15px;
+}
+.node-type-webform .field-name-field-header p,
+.node-type-webform fieldset.captcha .fieldset-description{
+  font-family: 'MuseoSans', Arial, Sans;
+  font-weight: 500;
+  line-height: 1.22em;
+  margin-bottom: 15px;
+}
+.node-type-webform fieldset.captcha img{
+  width: 187px;
+  height: 53px;
+  margin-top: 10px;
+}
+.node-type-webform fieldset.captcha .form-item-captcha-response{
+  margin: 20px 0 0 0;
+}
+.node-type-webform .field-name-field-header p strong{
+  font-weight: 700;
+}
+.node-type-webform .field-name-body{
+  line-height: 1.2em;
+  font-weight: 500;
+}
+.node-type-webform .webform-component{
+  /*margin-top: 1.4em;*/
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+.node-type-webform .webform-component.webform-component-radios{
+  padding-bottom: 30px;
+}
+.node-type-webform .webform-component.webform-component-managed_file{
+  padding-bottom: 10px;
+}
+.node-type-webform .form-type-select{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.node-type-webform .webform-container-inline:after{
+  font-size: 0;
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.node-type-webform .webform-component .form-type-radio{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.node-type-webform .form-item-submitted-language-select{
+  padding-bottom: 20px;
+}
+.node-type-webform #webform-component-problem{
+  clear: both;
+}
+.node-type-webform .webform-component-date .webform-container-inline, 
+.node-type-webform .form-radios,
+.node-type-webform fieldset.captcha .fieldset-wrapper{
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+.node-type-webform .form-actions input[type="submit"]{
+  background-color: #F3802B;
+  height: 36px;
+}
+.node-type-webform .form-actions input[type="submit"]:hover{
+  background-color:#8E7094;
+}
+.node-type-webform .form-actions input[type="submit"].disabled{
+  background-color: rgba(244, 130, 42, .5);
+  cursor: default;
+}
+.webform-client-form .form-actions #edit-reset{
+  margin-left: 3px;
+  width: 105px;
+  height: 36px;
+  border:none;
+  background-color: transparent;
+  color: #F3802B;
+  font-family:"MuseoSans", Arial, Helvetica, sans-serif;
+  text-transform:uppercase;
+  padding:10px 30px;
+  cursor:pointer;
+}
+.webform-client-form .error_message{
+  font-weight: 500;
+  font-family:"MuseoSans", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #FF0000;
+}
+#edit-submitted-required-labels{
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 20px;
+}
+.webform-preview #edit-previous{
+  background-color: transparent;
+  color: #F3802B;
+}
+.webform-preview #edit-submitted-required-labels,
+.webform-preview .form-item-submitted-language-select{
+  display: none;
+}
+.webform-client-form .form-actions{
+  padding-top: 50px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.webform-preview .field-name-body,
+.webform-preview #edit-submitted-summary > label{
+  display: none;
+}
+.webform-preview #edit-submitted-summary,
+.webform-preview #webform-component-member-name{
+  margin-top: 0;
+}
+.webform-preview .webform-component{
+  clear: both;
+  margin: 0;
+}
+.webform-preview .webform-component > label{
+  width: 149px;
+  display: block;
+  margin-bottom: 20px;
+  float: left;
+}
+.webform-preview .webform-component > .content{
+  margin-left: 214px;
+  width: 391px;
+  margin-bottom: 20px;
+}
+.webform-preview .webform-page{
+  display: none;
+}
+.webform-preview .form-actions{
+  clear: both;
+
+}
+.webform-client-form .form-type-select{
+  float: left;
+  margin-right: 15px;
+}
+.webform-client-form .form-type-select select.form-select{
+  width: 125px;
+}
+.webform-client-form .form-type-select .chzn-search{
+  display: none;
+}
+.webform-client-form .webform-container-inline div, 
+.webform-client-form .webform-container-inline div.form-item{
+  display: block;
+}
+.webform-client-form #webform-component-phone-home,
+.webform-client-form #webform-component-solution-request{
+  clear: both;
+}
+
+.webform-client-form .chzn-container-single div b{
+  background-image: url('../images/select-corner.png') !important;
+  background-position-y: 0;
+  background-repeat: no-repeat;
+  background-size: 52px 90px !important;
+}
+.webform-client-form .chzn-container-single .chzn-single-with-drop div b{
+  background-position-y: -45px;
+}
+.chzn-container-single .chzn-single span{
+  padding-left:10px;
+  padding-right: 10px;
+}
+.webform-client-form fieldset.captcha{
+  margin: 0;
+}
+.error_message{
+  clear: both;
+}
+.chzn-container .chzn-results .active-result{
+  list-style: none !important;
+}
